@@ -25,18 +25,16 @@ xml2js.parseString(xml, (err, result) => {
     }));
 
   createExcelTable(data)
-
 });
 
-
 async function createExcelTable(data) {
-  // Kreiranje novog workbooka
+  // Creating a new workbook
   const workbook = await XlsxPopulate.fromBlankAsync();
 
-  // Selektovanje sheeta (tabele)
+  // Sheet selection (table)
   const sheet = workbook.sheet(0);
 
-  // Proširivanje prve kolone
+  // Column expansion
   sheet.column(1).width(30);
   sheet.column(2).width(15);
   sheet.column(3).width(15);
@@ -49,7 +47,7 @@ async function createExcelTable(data) {
   sheet.column(10).width(15);
 
 
-  // Definisanje zaglavlja tabele
+  // Defining table headers
   const headerRow = sheet.row(1);
   headerRow.cell(1).value('Ime i prezime');
   headerRow.cell(2).value('SVP');
@@ -62,9 +60,9 @@ async function createExcelTable(data) {
   headerRow.cell(9).value('NEZ');
   headerRow.cell(10).value('PIO ben');
 
-  // Popunjavanje podacima
+  // Data filling
   data.forEach((entry, index) => {
-    const row = sheet.row(index + 2); // Index + 2 jer prva vrsta je zaglavlje
+    const row = sheet.row(index + 2); // Index + 2 because the first type is the header
     row.cell(1).value(entry.imeIPrezime);
     row.cell(2).value(entry.SVP[0]);
     row.cell(3).value(entry.Bruto[0]);
@@ -77,6 +75,6 @@ async function createExcelTable(data) {
     row.cell(10).value(entry.PIOBen[0]);
   });
 
-  // Snimanje workbooka u fajl
+  // Recording the workbook to a file
   await workbook.toFileAsync('output.xlsx');
 }
