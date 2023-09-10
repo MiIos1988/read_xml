@@ -6,8 +6,8 @@ const xml = fs.readFileSync('C:/Users/Client85a/Downloads/doc.xml', 'utf-8');
 
 xml2js.parseString(xml, (err, result) => {
   if (err) {
-    console.error(err);
-    return;
+    console.error(err, "error");
+    return; 
   }
 
   const data = result['ns1:PodaciPoreskeDeklaracije']['ns1:DeklarisaniPrihodi'][0]['ns1:PodaciOPrihodima']
